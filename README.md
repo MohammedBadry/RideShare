@@ -187,7 +187,7 @@ Here are some screenshots of the admin dashboard pages.
 
 This page provides a summary of all key metrics, including total trips, active trips, available drivers, and vehicle status.
 
-![Dashboard Summary](./public/images/dashboard-main.png)
+![Dashboard Summary](./public/images/dashboard-main.jpeg)
 
 ### 2. Drivers Management
 
