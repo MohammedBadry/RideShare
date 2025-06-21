@@ -179,96 +179,41 @@ routes/
 - Revenue analytics
 - Geographic trip distribution
 
+## 📸 Dashboard Screenshots
+
+Here are some screenshots of the admin dashboard pages.
+
+### 1. Main Dashboard
+
+This page provides a summary of all key metrics, including total trips, active trips, available drivers, and vehicle status.
+
+![Dashboard Summary](./public/images/dashboard-main.png)
+
+### 2. Drivers Management
+
+This page allows admins to view, add, edit, and manage all drivers in the system.
+
+![Drivers Management](./public/images/drivers-management.png)
+
+### 3. Vehicles Management
+
+This page is used to track all vehicles, their availability, and assigned drivers.
+
+![Vehicles Management](./public/images/vehicles-management.png)
+
+### 4. Trips Management
+
+This page provides a comprehensive view of all trips, including their status, assigned drivers, and user details.
+
+![Trips Management](./public/images/trips-management.png)
+
+### 5. Analytics & Reports
+
+This page offers detailed analytics and reporting tools to visualize trip data, revenue, and other business insights.
+
+![Analytics Page](./public/images/analytics-page.png)
+
 ## 🔌 API Documentation
 
 ### Base URL
 ```
-http://localhost:8000/api
-```
-
-### Key Endpoints
-
-#### Trips
-- `GET /trips` - List all trips
-- `POST /trips` - Create new trip
-- `GET /trips/{id}` - Get trip details
-- `PUT /trips/{id}/status` - Update trip status
-
-#### Drivers
-- `GET /drivers` - List available drivers
-- `GET /drivers/{id}` - Get driver details
-
-#### Vehicles
-- `GET /vehicles` - List available vehicles
-- `GET /vehicles/{id}/location` - Get vehicle location
-
-### Swagger Documentation
-Access auto-generated API documentation at:
-```
-http://localhost:8000/api/documentation
-```
-
-## 🧪 Testing
-
-Run the test suite:
-```bash
-php artisan test
-```
-
-### Test Coverage
-- Feature tests for trip booking
-- Unit tests for models
-- API endpoint testing
-- Admin functionality testing
-
-## 🚀 Deployment
-
-### Production Setup
-1. Set environment to production
-2. Configure production database
-3. Run migrations
-4. Set up queue workers
-5. Configure caching
-6. Set up SSL certificates
-
-### Environment Variables
-```env
-APP_ENV=production
-APP_DEBUG=false
-APP_URL=https://your-domain.com
-DB_CONNECTION=mysql
-CACHE_DRIVER=redis
-QUEUE_CONNECTION=redis
-```
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Add tests for new functionality
-5. Submit a pull request
-
-## 📝 License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## 🆘 Support
-
-For support and questions:
-- Create an issue in the repository
-- Check the API documentation
-- Review the Laravel documentation
-
-## 🔄 Changelog
-
-### Version 1.0.0
-- Initial release
-- Admin dashboard
-- Trip management system
-- API endpoints
-- Basic analytics
-
----
-
-**Built with ❤️ using Laravel**
