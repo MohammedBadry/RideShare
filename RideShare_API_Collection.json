@@ -1,0 +1,445 @@
+{
+	"info": {
+		"_postman_id": "rideshare-api-collection-v2",
+		"name": "RideShare API Collection v2",
+		"description": "Complete API collection for RideShare application including driver selection, job notifications, and live tracking",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "Admin Login",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"admin@rideshare.com\",\n    \"password\": \"password\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/admin/login",
+							"host": ["{{base_url}}"],
+							"path": ["admin", "login"]
+						}
+					}
+				},
+				{
+					"name": "User Login (Sanctum)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"user@example.com\",\n    \"password\": \"password\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/login",
+							"host": ["{{base_url}}"],
+							"path": ["api", "login"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Trips",
+			"item": [
+				{
+					"name": "Create Trip (Auto Driver Selection)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"user_id\": 1,\n    \"origin_latitude\": 40.7128,\n    \"origin_longitude\": -74.0060,\n    \"destination_latitude\": 40.7589,\n    \"destination_longitude\": -73.9851,\n    \"fare\": 25.00,\n    \"pickup_location\": \"123 Main St, New York, NY\",\n    \"dropoff_location\": \"456 Broadway, New York, NY\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/trips",
+							"host": ["{{base_url}}"],
+							"path": ["api", "trips"]
+						}
+					}
+				},
+				{
+					"name": "Get All Trips",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/trips?page=1&per_page=15",
+							"host": ["{{base_url}}"],
+							"path": ["api", "trips"],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "per_page",
+									"value": "15"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Get Trip Details",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/trips/1",
+							"host": ["{{base_url}}"],
+							"path": ["api", "trips", "1"]
+						}
+					}
+				},
+				{
+					"name": "Get User Trip History",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{user_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/trips/user-history",
+							"host": ["{{base_url}}"],
+							"path": ["api", "trips", "user-history"]
+						}
+					}
+				},
+				{
+					"name": "Update Trip Status",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"status\": \"in_progress\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/trips/1/status",
+							"host": ["{{base_url}}"],
+							"path": ["api", "trips", "1", "status"]
+						}
+					}
+				},
+				{
+					"name": "Retry Driver Assignment",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/trips/1/retry-assignment",
+							"host": ["{{base_url}}"],
+							"path": ["api", "trips", "1", "retry-assignment"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Job Notifications",
+			"item": [
+				{
+					"name": "Get Available Jobs for Driver",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/jobs/driver/1/available",
+							"host": ["{{base_url}}"],
+							"path": ["api", "jobs", "driver", "1", "available"]
+						}
+					}
+				},
+				{
+					"name": "Driver Accept Job",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"trip_id\": 1\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/jobs/driver/1/accept",
+							"host": ["{{base_url}}"],
+							"path": ["api", "jobs", "driver", "1", "accept"]
+						}
+					}
+				},
+				{
+					"name": "Driver Reject Job",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/jobs/driver/1/reject/1",
+							"host": ["{{base_url}}"],
+							"path": ["api", "jobs", "driver", "1", "reject", "1"]
+						}
+					}
+				},
+				{
+					"name": "Get Driver Current Job",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/jobs/driver/1/current",
+							"host": ["{{base_url}}"],
+							"path": ["api", "jobs", "driver", "1", "current"]
+						}
+					}
+				},
+				{
+					"name": "Driver Complete Job",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/jobs/driver/1/complete/1",
+							"host": ["{{base_url}}"],
+							"path": ["api", "jobs", "driver", "1", "complete", "1"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Live Tracking",
+			"item": [
+				{
+					"name": "Update Vehicle Location",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"latitude\": 40.7128,\n    \"longitude\": -74.0060\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/api/vehicles/1/location",
+							"host": ["{{base_url}}"],
+							"path": ["api", "vehicles", "1", "location"]
+						}
+					}
+				},
+				{
+					"name": "Get Vehicle Location",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/vehicles/1/location",
+							"host": ["{{base_url}}"],
+							"path": ["api", "vehicles", "1", "location"]
+						}
+					}
+				},
+				{
+					"name": "Get Available Drivers (Location-based)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/available-drivers?lat=40.7128&lng=-74.0060",
+							"host": ["{{base_url}}"],
+							"path": ["api", "available-drivers"],
+							"query": [
+								{
+									"key": "lat",
+									"value": "40.7128"
+								},
+								{
+									"key": "lng",
+									"value": "-74.0060"
+								}
+							]
+						}
+					}
+				},
+				{
+					"name": "Get Available Drivers (Optimized Query)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/available-drivers/optimized?lat=40.7128&lng=-74.0060",
+							"host": ["{{base_url}}"],
+							"path": ["api", "available-drivers", "optimized"],
+							"query": [
+								{
+									"key": "lat",
+									"value": "40.7128"
+								},
+								{
+									"key": "lng",
+									"value": "-74.0060"
+								}
+							]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Admin Management",
+			"item": [
+				{
+					"name": "Create Driver",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"John Driver\",\n    \"email\": \"john.driver@example.com\",\n    \"phone\": \"+1234567890\",\n    \"license_number\": \"DL123456789\",\n    \"experience_years\": 5,\n    \"vehicle_id\": 1,\n    \"is_available\": true\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/admin/drivers",
+							"host": ["{{base_url}}"],
+							"path": ["admin", "drivers"]
+						}
+					}
+				},
+				{
+					"name": "Create Vehicle",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"model\": \"Toyota Camry\",\n    \"plate_number\": \"ABC123\",\n    \"year\": 2022,\n    \"type\": \"sedan\",\n    \"color\": \"White\",\n    \"driver_id\": 1,\n    \"is_available\": true,\n    \"latitude\": 40.7128,\n    \"longitude\": -74.0060\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/admin/vehicles",
+							"host": ["{{base_url}}"],
+							"path": ["admin", "vehicles"]
+						}
+					}
+				},
+				{
+					"name": "Create Trip (Manual Assignment)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"user_id\": 1,\n    \"driver_id\": 1,\n    \"vehicle_id\": 1,\n    \"pickup_location\": \"123 Main St, New York, NY\",\n    \"dropoff_location\": \"456 Broadway, New York, NY\",\n    \"fare\": 25.00,\n    \"status\": \"pending\",\n    \"pickup_latitude\": 40.7128,\n    \"pickup_longitude\": -74.0060,\n    \"dropoff_latitude\": 40.7589,\n    \"dropoff_longitude\": -73.9851\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/admin/trips",
+							"host": ["{{base_url}}"],
+							"path": ["admin", "trips"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "Driver Active Trips",
+			"item": [
+				{
+					"name": "Get Driver Active Trips",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{base_url}}/api/trips/driver/1/active",
+							"host": ["{{base_url}}"],
+							"path": ["api", "trips", "driver", "1", "active"]
+						}
+					}
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:8000",
+			"type": "string"
+		},
+		{
+			"key": "admin_token",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "user_token",
+			"value": "",
+			"type": "string"
+		}
+	]
+} 
