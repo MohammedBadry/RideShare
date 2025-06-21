@@ -193,25 +193,25 @@ This page provides a summary of all key metrics, including total trips, active t
 
 This page allows admins to view, add, edit, and manage all drivers in the system.
 
-![Drivers Management](./public/images/drivers-management.png)
+![Drivers Management](./public/images/drivers-management.jpeg)
 
 ### 3. Vehicles Management
 
 This page is used to track all vehicles, their availability, and assigned drivers.
 
-![Vehicles Management](./public/images/vehicles-management.png)
+![Vehicles Management](./public/images/vehicles-management.jpeg)
 
 ### 4. Trips Management
 
 This page provides a comprehensive view of all trips, including their status, assigned drivers, and user details.
 
-![Trips Management](./public/images/trips-management.png)
+![Trips Management](./public/images/trips-management.jpeg)
 
 ### 5. Analytics & Reports
 
 This page offers detailed analytics and reporting tools to visualize trip data, revenue, and other business insights.
 
-![Analytics Page](./public/images/analytics-page.png)
+![Analytics Page](./public/images/analytics-page.jpeg)
 
 ## 🔌 API Documentation
 
