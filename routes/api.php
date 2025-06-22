@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\TripController;
 use App\Http\Controllers\Api\JobNotificationController;
 use App\Http\Controllers\Admin\AvailableDriversController;
 use App\Http\Controllers\Admin\VehicleLocationController;
+use App\Http\Controllers\Api\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,9 +19,10 @@ use App\Http\Controllers\Admin\VehicleLocationController;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::post('login', [AuthController::class, 'login']);
+Route::post('register', [AuthController::class, 'register']);
+Route::post('forgot-password', [AuthController::class, 'forgotPassword']);
+Route::post('reset-password', [AuthController::class, 'resetPassword']); 
 
 // Trip routes
 Route::prefix('trips')->group(function () {
@@ -51,4 +53,4 @@ Route::prefix('available-drivers')->group(function () {
 Route::prefix('vehicles')->group(function () {
     Route::patch('/{vehicleId}/location', [VehicleLocationController::class, 'update']);
     Route::get('/{vehicleId}/location', [VehicleLocationController::class, 'getLocation']);
-}); 
+});
