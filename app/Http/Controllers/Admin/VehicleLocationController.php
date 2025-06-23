@@ -15,8 +15,8 @@ class VehicleLocationController extends Controller
         
         // Update vehicle location
         $vehicle->update([
-            'current_latitude' => $request->latitude,
-            'current_longitude' => $request->longitude,
+            'latitude' => $request->latitude,
+            'longitude' => $request->longitude,
         ]);
 
         return response()->json([
@@ -36,8 +36,8 @@ class VehicleLocationController extends Controller
         return response()->json([
             'vehicle_id' => $vehicleId,
             'location' => [
-                'latitude' => $vehicle->current_latitude,
-                'longitude' => $vehicle->current_longitude,
+                'latitude' => $vehicle->latitude,
+                'longitude' => $vehicle->longitude,
             ]
         ]);
     }
