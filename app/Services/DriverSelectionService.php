@@ -52,7 +52,7 @@ class DriverSelectionService
         int $radius = 5
     ) {
         $cacheKey = "available_drivers:{$latitude}:{$longitude}:{$vehicleType->value}";
-        
+
         return Cache::remember($cacheKey, 30, function() use ($latitude, $longitude, $vehicleType, $radius) {
             return Vehicle::where('is_available', true)
                 ->where('type', $vehicleType->value)
@@ -186,6 +186,7 @@ class DriverSelectionService
         // Clear relevant caches
         $this->clearDriverCaches($selectedDriver->driver_id, $trip);
 
+        //here we can send fcm notifiactions to both user and driver
         Log::info("Auto-assigned driver {$selectedDriver->driver_id} to trip {$trip->id}");
         return true;
     }
@@ -197,7 +198,7 @@ class DriverSelectionService
     {
         Cache::forget("driver:{$driverId}:active_trips");
         Cache::forget("available_drivers:{$trip->origin_latitude}:{$trip->origin_longitude}");
-        
+
         // Clear vehicle type specific cache
         $vehicleType = Vehicle::find($trip->vehicle_id)->type ?? 'sedan';
         Cache::forget("available_drivers:{$trip->origin_latitude}:{$trip->origin_longitude}:{$vehicleType}");
@@ -229,4 +230,4 @@ class DriverSelectionService
             ]
         ];
     }
-} 
+}
