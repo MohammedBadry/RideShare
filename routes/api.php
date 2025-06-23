@@ -25,17 +25,17 @@ Route::post('forgot-password', [AuthController::class, 'forgotPassword']);
 Route::post('reset-password', [AuthController::class, 'resetPassword']); 
 
 // Trip routes
-Route::prefix('trips')->group(function () {
+Route::middleware('auth:sanctum')->prefix('trips')->group(function () {
     Route::get('/', [TripController::class, 'index']);
     Route::post('/', [TripController::class, 'store']);
-    Route::get('/{tripId}', [TripController::class, 'show']);
-    Route::get('/user-history', [TripController::class, 'userHistory']);
-    Route::get('/driver/{driverId}/active', [TripController::class, 'driverActiveTrips']);
-    Route::patch('/{tripId}/status', [TripController::class, 'updateStatus']);
+    Route::get('/user-history', [TripController::class, 'userHistory'])->name('trips.userHistory');
+    Route::get('/{trip}', [TripController::class, 'show'])->name('trips.show');
+    Route::patch('/{trip}/status', [TripController::class, 'updateStatus'])->name('trips.updateStatus');
+    Route::post('/{trip}/retry-assignment', [TripController::class, 'retryDriverAssignment'])->name('trips.retryAssignment');
 });
 
 // Job notification routes for drivers
-Route::prefix('jobs')->group(function () {
+Route::middleware('auth:sanctum')->prefix('jobs')->group(function () {
     Route::get('/driver/{driverId}/available', [JobNotificationController::class, 'getAvailableJobs']);
     Route::post('/driver/{driverId}/accept', [JobNotificationController::class, 'acceptJob']);
     Route::post('/driver/{driverId}/reject/{tripId}', [JobNotificationController::class, 'rejectJob']);
@@ -54,3 +54,9 @@ Route::prefix('vehicles')->group(function () {
     Route::patch('/{vehicleId}/location', [VehicleLocationController::class, 'update']);
     Route::get('/{vehicleId}/location', [VehicleLocationController::class, 'getLocation']);
 });
+
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+    return $request->user();
+});
+
+Route::get('/drivers/{driverId}/active-trips', [TripController::class, 'driverActiveTrips']);

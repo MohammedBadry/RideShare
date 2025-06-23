@@ -115,9 +115,11 @@ class TripController extends Controller
     /**
      * Retry driver assignment for pending trips
      */
-    public function retryDriverAssignment($tripId)
+    public function retryDriverAssignment(Request $request, Trip $trip)
     {
-        $trip = Trip::findOrFail($tripId);
+        if ($trip->user_id !== $request->user()->id) {
+            return response()->json(['message' => 'Forbidden'], 403);
+        }
 
         if ($trip->status !== TripStatus::PENDING) {
             return response()->json([
